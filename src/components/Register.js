@@ -1,38 +1,49 @@
 import { useNavigate } from "react-router-dom";
-import { useRef } from "react";
+import { useState } from "react";
 
 export default function Register() {
   const navigate = useNavigate();
-  const nameRef = useRef(null);
-  const emailRef = useRef(null);
-  const courseRef = useRef(null);
+  const [form, setForm] = useState({
+    name: "",
+    email: "",
+    course: ""
+  });
 
-  function handleSubmit(event) {
-    event.preventDefault();
-    navigate("/confirmed", {
-      state: {name: nameRef.current.value, email: emailRef.current.value, course: courseRef.current.value}
-    });
+  function handleChange(e) {
+    setForm({ ...form, [e.target.name]: e.target.value });
+  }
+
+  function handleSubmit(e) {
+    e.preventDefault();
+
+    if (!form.name || !form.email || !form.course) {
+      alert("Please fill in all fields");
+      return;
+    }
+
+    navigate("/confirmed", { state: form });
   }
 
   return (
     <div className="container">
       <h1>Register your interest</h1>
-      <p>
-        Please register the course you are interested!
-      </p>
+
       <form onSubmit={handleSubmit}>
         <label>
-          Name:
-          <input type="text" name="name" ref={nameRef} />
+          Name
+          <input name="name" value={form.name} onChange={handleChange} />
         </label>
+
         <label>
-          Email:
-          <input type="text" name="email" ref={emailRef} />
+          Email
+          <input name="email" value={form.email} onChange={handleChange} />
         </label>
+
         <label>
-          Course:
-          <input type="text" name="course" ref={courseRef} />
+          Course
+          <input name="course" value={form.course} onChange={handleChange} />
         </label>
+
         <input type="submit" value="Submit" />
       </form>
     </div>

@@ -4,7 +4,13 @@ import { getModuleDetails } from "../api";
 export default function ModuleDetails() {
   const { diplomaId, moduleId } = useParams();
 
-  const { name, description, speaker } = getModuleDetails({diplomaId, moduleId});
+  const module = getModuleDetails(moduleId, diplomaId);
+
+  if (!module) {
+    return <p>Module not found.</p>;
+  }
+
+  const { name, description, speaker } = module;
 
   return (
     <>
@@ -12,9 +18,7 @@ export default function ModuleDetails() {
       <p>{description}</p>
 
       <h4>{speaker.name}</h4>
-      <span>
-        {speaker.title}
-      </span>
+      <span>{speaker.title}</span>
     </>
   );
 }

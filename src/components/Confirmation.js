@@ -1,20 +1,25 @@
-import {useLocation} from "react-router-dom";
+import { useLocation, Link } from "react-router-dom";
 
 export default function Confirmation() {
-  const {state} = useLocation();
+  const { state } = useLocation();
+
+  if (!state) return <h2>No registration data</h2>;
 
   return (
     <div className="container">
       <h1>Thank You!</h1>
 
-      {state && (
-        <>
-          <p>{state.name}, you're now registered for Red30 Tech.</p>
-          <p>
-            We've sent more details to <strong>{state.email}</strong>.
-          </p>
-        </>
-      )}
+      <p>
+        <strong>{state.name}</strong>, you have successfully registered for:
+      </p>
+
+      <h3>{state.course}</h3>
+
+      <p>
+        A confirmation email has been sent to <strong>{state.email}</strong>.
+      </p>
+
+      <Link to="/diplomas">Browse more courses</Link>
     </div>
   );
 }

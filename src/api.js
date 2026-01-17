@@ -62,7 +62,8 @@ export function getModules(diplomaId) {
 }
 
 export function getModuleDetails(moduleId, diplomaId) {
-  return diplomas
-    .find(({ id }) => id === diplomaId)
-    .modules.find(({ id }) => id === moduleId);
+  const diploma = diplomas.find(d => d.id === diplomaId);
+  if (!diploma) return null;
+
+  return diploma.modules.find(m => m.id === moduleId);
 }
