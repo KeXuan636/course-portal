@@ -1,4 +1,4 @@
-import { Outlet, Link, NavLink} from "react-router-dom";
+import { Outlet, NavLink} from "react-router-dom";
 import { getDiplomas } from "../api";
 
 export default function Diplomas() {
@@ -11,10 +11,10 @@ export default function Diplomas() {
         {diplomas.map( diploma => (
           <li key={diploma.id}>
             <NavLink 
-              className={({ isActive }) => 
-                isActive ? "diploma-active" : null
-              }
-              to={diploma.id}
+                to={diploma.id}
+                className={({ isActive }) => 
+                    isActive ? "diploma-active" : null
+                }
             >
               {diploma.name}
             </NavLink>
